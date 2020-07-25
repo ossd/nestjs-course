@@ -11,6 +11,12 @@ export class CoursesRepository {
     private courseModel: Model<Course & mongoose.Document>,
   ) {}
 
+  async add(course: Partial<Course>): Promise<Course> {
+    const newCourse = await this.courseModel.create(course);
+    newCourse.save();
+    return newCourse.toObject({ versionKey: false });
+  }
+
   async findAll(): Promise<Course[]> {
     return this.courseModel.find();
   }
