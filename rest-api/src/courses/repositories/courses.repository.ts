@@ -20,4 +20,8 @@ export class CoursesRepository {
       new: true,
     });
   }
+
+  delete(courseId: string) {
+    return this.courseModel.deleteOne({ _id: courseId });
+  }
 }
