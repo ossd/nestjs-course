@@ -17,7 +17,7 @@ export class CoursesController {
   constructor(private coursesDB: CoursesRepository) {}
 
   @Post()
-  async createCourse(@Body() course: Partial<Course>): Promise<Course> {
+  async createCourse(@Body() course: Course): Promise<Course> {
     return this.coursesDB.add(course);
   }
 
@@ -29,11 +29,8 @@ export class CoursesController {
   @Put(':courseId')
   async updateCourse(
     @Param('courseId') courseId: string,
-    @Body('seqNo', ParseIntPipe) seqNo: number,
-    @Body() changes: Partial<Course>,
+    @Body() changes: Course,
   ): Promise<Course> {
-    console.log('seqNo value: ' + seqNo + ', type: ' + typeof seqNo);
-
     if (changes._id) {
       throw new BadRequestException("Can't update course id");
     }
