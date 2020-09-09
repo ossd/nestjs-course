@@ -3,6 +3,9 @@ import { CoursesController } from './controllers/courses.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CoursesSchema } from './schemas/courses.shema';
 import { CoursesRepository } from './repositories/courses.repository';
+import { LessonsSchema } from './schemas/lessons.schema';
+import { LessonsRepository } from './repositories/lessons.repository';
+import { LessonsController } from './controllers/lessons.controller';
 
 @Module({
   imports: [
@@ -11,9 +14,13 @@ import { CoursesRepository } from './repositories/courses.repository';
         name: 'Course',
         schema: CoursesSchema,
       },
+      {
+        name: 'Lesson',
+        schema: LessonsSchema,
+      },
     ]),
   ],
-  controllers: [CoursesController],
-  providers: [CoursesRepository],
+  controllers: [CoursesController, LessonsController],
+  providers: [CoursesRepository, LessonsRepository],
 })
 export class CoursesModule {}
