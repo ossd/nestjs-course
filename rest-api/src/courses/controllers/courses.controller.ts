@@ -8,11 +8,14 @@ import {
   Post,
   BadRequestException,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { Course } from '../../../../shared/course';
 import { CoursesRepository } from '../repositories/courses.repository';
+import { AuthentitationGuard } from '../../guards/authentication.guard';
 
 @Controller('courses')
+@UseGuards(AuthentitationGuard)
 export class CoursesController {
   constructor(private coursesDB: CoursesRepository) {}
 
