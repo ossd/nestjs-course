@@ -13,6 +13,7 @@ import {
 import { Course } from '../../../../shared/course';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { AuthentitationGuard } from '../../guards/authentication.guard';
+import { AdminGuard } from '../../guards/admin.guard';
 
 @Controller('courses')
 @UseGuards(AuthentitationGuard)
@@ -20,6 +21,7 @@ export class CoursesController {
   constructor(private coursesDB: CoursesRepository) {}
 
   @Post()
+  @UseGuards(AdminGuard)
   async createCourse(@Body() course: Course): Promise<Course> {
     return this.coursesDB.add(course);
   }
@@ -43,6 +45,7 @@ export class CoursesController {
   }
 
   @Put(':courseId')
+  @UseGuards(AdminGuard)
   async updateCourse(
     @Param('courseId') courseId: string,
     @Body() changes: Course,
@@ -55,6 +58,7 @@ export class CoursesController {
   }
 
   @Delete(':courseId')
+  @UseGuards(AdminGuard)
   async deleteCourse(@Param('courseId') courceId: string) {
     return this.coursesDB.delete(courceId);
   }
